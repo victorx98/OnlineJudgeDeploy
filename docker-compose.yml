@@ -20,7 +20,9 @@ services:
       - POSTGRES_PASSWORD=onlinejudge
 
   judge-server:
-    image: registry.cn-hangzhou.aliyuncs.com/onlinejudge/judge_server
+    build: ./judge-server
+    image: judge-server
+    #image: registry.cn-hangzhou.aliyuncs.com/onlinejudge/judge_server
     container_name: judge-server
     restart: always
     read_only: true
@@ -44,7 +46,8 @@ services:
       # - judger_debug=1
   
   oj-backend:
-    image: registry.cn-hangzhou.aliyuncs.com/onlinejudge/oj_backend
+    build: ./oj-backend
+    image: oj-backend
     container_name: oj-backend
     restart: always
     depends_on:
@@ -61,5 +64,5 @@ services:
       # - FORCE_HTTPS=1
       # - STATIC_CDN_HOST=cdn.oj.com
     ports:
-      - "0.0.0.0:80:8000"
-      - "0.0.0.0:443:1443"
+      - "0.0.0.0:8080:8000"
+      - "0.0.0.0:8443:1443"
